@@ -1,0 +1,1 @@
+include ':app', ':commons-logging-1.2', ':httpasyncclient-4.1', ':httpasyncclient-cache-4.1', ':httpclient-4.4.1', ':httpclient-cache-4.4.1', ':httpcore-4.4.1', ':httpcore-nio-4.4.1', ':json-simple-1.1.1'

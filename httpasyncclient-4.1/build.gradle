@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('httpasyncclient-4.1.jar'))
