@@ -5,4 +5,4 @@ MYoHOME connects the Myo Remote armband to the AT&T digital life home system. Wi
 
 NOTE: The app is dependent upon authorization to the AT&T Digital Life API. This authorization was only available during the hackathon, therefore the app is no longer able to run.
 
-A screenshot of the UI, and a video of the app being used has been included in this repository for viewing.
+Screenshots of the UI, and a video of the app being used has been included in this repository for viewing.
