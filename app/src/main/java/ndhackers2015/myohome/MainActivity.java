@@ -51,9 +51,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //ActionBar actionbar = getActionBar();
-        //actionbar.setDisplayShowTitleEnabled(false);
-
+        // Get images for UI
         I1 = (ImageView) findViewById(R.id.imageView1);
         I2 = (ImageView) findViewById(R.id.imageView2);
         I3 = (ImageView) findViewById(R.id.imageView3);
@@ -72,14 +70,15 @@ public class MainActivity extends AppCompatActivity  {
             return;
         }
         Hub.getInstance().addListener(mListener);
-
+        
+        // Sets Images of Gestures for UI
         I5.setBackgroundResource(R.drawable.myo5);
         I6.setBackgroundResource(R.drawable.myo4);
         I7.setBackgroundResource(R.drawable.myo1);
         I8.setBackgroundResource(R.drawable.myo2);
         I9.setBackgroundResource(R.drawable.myo3);
 
-        // Initialize DL
+        // Initialize Digital Life
         dlc = DigitalLifeController.getInstance();
         dlc.init("EE_E424920D0D768DAF_1", "https://systest.digitallife.att.com");
         try {
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity  {
             return;
         }
 
-
+        // Get status of digital life features and change immages accordingly
         isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
         if (isDoorLocked == true) {
             I1.setBackgroundResource(R.drawable.locked);
@@ -112,6 +111,7 @@ public class MainActivity extends AppCompatActivity  {
         I4.setBackgroundResource(R.drawable.night_off);
     }
 
+    // Get current status of device by connecting to Digital Life API
     public boolean getStatus(DigitalLifeController dlc, String attribute, String label, Boolean in, String t, String f) {
         JSONArray j_array = dlc.fetchDevices();
         for (int i = 0; i < j_array.size(); i++){
@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity  {
                     myo.vibrate(Myo.VibrationType.LONG);
                     try { Thread.sleep(1500); } catch(Exception e) {}
                     isNight = true;
+                    // Night Mode turns off lights, locks doors, and turns on smartplug (nightlight in this case)
                     I4.setBackgroundResource(R.drawable.night_on);
                     light();
                     isLightOn = getStatus(dlc, "light-control", "switch", isLightOn, "on", "off");;
@@ -258,6 +259,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     @Override
+    // Updates images whenever app is reopened from background
     protected void onResume() {
         super.onResume();
         isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
