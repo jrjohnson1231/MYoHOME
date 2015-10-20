@@ -243,49 +243,10 @@ public class DigitalLifeController {
     }
 
     public static JSONArray getDevicesAsJSON(Object objectIn) {
-        //   ArrayList<DigitalLifeDevice> devices = new ArrayList<DigitalLifeDevice>();
 
         JSONArray object = (JSONArray) ((JSONObject) objectIn).get("content");
         return object;
 
-     /*   for (int deviceIndex = 0; deviceIndex < object.size(); deviceIndex++) {
-            JSONArray arrayobject = (JSONArray) ((JSONObject) object
-                    .get(deviceIndex)).get("attributes");
-            String deviceID = (String) ((JSONObject) object.get(deviceIndex))
-                    .get("deviceGuid");
-            String deviceType = (String) ((JSONObject) object.get(deviceIndex))
-                    .get("deviceType");
-            DigitalLifeDevice device = new DigitalLifeDevice();
-            device.setDeviceID(deviceID);
-            device.setDeviceType(deviceType);
-            ArrayList<String> viewableDeviceList = DigitalLifeViewConfiguration.viewableDeviceList;
-            if (viewableDeviceList.contains(deviceType)) {
-                // iterate over the attributes.  If make desired attribute actionable by assigning the action to the button in the cell.
-                for (int index = 0; index < arrayobject.size(); index++) {
-                    if (arrayobject.get(index) instanceof JSONObject) {
-                        JSONObject o = (JSONObject) arrayobject.get(index);
-                        String label = (String) o.get("label");
-                        if ("name".equalsIgnoreCase(label)) {
-                            device.setName((String) o.get("value"));
-                        } else if ("lock".equalsIgnoreCase(label) ||
-                                "water-state".equalsIgnoreCase(label) ||
-                                "switch".equalsIgnoreCase(label) ||
-                                "contact-state".equalsIgnoreCase(label)) {
-                            String dataType = (String) o.get("dataType");
-                            String value = (String) o.get("value");
-                            value = value.toUpperCase();
-                            device.setStatus(value);
-                            device.setDataType(dataType);
-                            device.setAction(label);
-                        }
-                    }
-                }
-                decorateDevice(device);
-                devices.add(device);
-            }
-        }
-        return devices;
-        */
     }
 
     /**
