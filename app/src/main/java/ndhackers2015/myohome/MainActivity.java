@@ -51,11 +51,15 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
         ActionBar actionbar = getActionBar();
         if (actionbar != null) {
             actionbar.setTitle("");
         }
 
+=======
+        // Get images for UI
+>>>>>>> e215d7e4ada1d88e9ba2df72bc578c3b0496f629
         I1 = (ImageView) findViewById(R.id.imageView1);
         I2 = (ImageView) findViewById(R.id.imageView2);
         I3 = (ImageView) findViewById(R.id.imageView3);
@@ -74,14 +78,21 @@ public class MainActivity extends AppCompatActivity  {
             return;
         }
         Hub.getInstance().addListener(mListener);
-
+        
+        // Sets Images of Gestures for UI
         I5.setBackgroundResource(R.drawable.myo5);
         I6.setBackgroundResource(R.drawable.myo4);
         I7.setBackgroundResource(R.drawable.myo1);
         I8.setBackgroundResource(R.drawable.myo2);
         I9.setBackgroundResource(R.drawable.myo3);
 
+<<<<<<< HEAD
         // Initialize DL
+=======
+        // Initialize Digital Life
+        dlc = DigitalLifeController.getInstance();
+        dlc.init("EE_E424920D0D768DAF_1", "https://systest.digitallife.att.com");
+>>>>>>> e215d7e4ada1d88e9ba2df72bc578c3b0496f629
         try {
             dlc = DigitalLifeController.getInstance();
             dlc.init("EE_E424920D0D768DAF_1", "https://systest.digitallife.att.com");
@@ -92,6 +103,7 @@ public class MainActivity extends AppCompatActivity  {
             return;
         }
 
+<<<<<<< HEAD
         try {
             isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
             if (isDoorLocked == true) {
@@ -114,10 +126,31 @@ public class MainActivity extends AppCompatActivity  {
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Could not load Digital Life", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+=======
+        // Get status of digital life features and change immages accordingly
+        isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
+        if (isDoorLocked == true) {
+            I1.setBackgroundResource(R.drawable.locked);
+        } else {
+            I1.setBackgroundResource(R.drawable.unlocked);
+        }
+        isLightOn = getStatus(dlc, "light-control", "switch", isLightOn, "on", "off");
+        if (isLightOn == true) {
+            I2.setBackgroundResource(R.drawable.light_on);
+        } else {
+            I2.setBackgroundResource(R.drawable.light_off);
+        }
+        isSmartPlugOn = getStatus(dlc, "smart-plug", "switch", isSmartPlugOn, "on", "off");
+        if (isSmartPlugOn == true) {
+            I3.setBackgroundResource(R.drawable.connected);
+        } else {
+            I3.setBackgroundResource(R.drawable.disconnected);
+>>>>>>> e215d7e4ada1d88e9ba2df72bc578c3b0496f629
         }
         I4.setBackgroundResource(R.drawable.night_off);
     }
 
+    // Get current status of device by connecting to Digital Life API
     public boolean getStatus(DigitalLifeController dlc, String attribute, String label, Boolean in, String t, String f) {
         try {
             JSONArray j_array = dlc.fetchDevices();
@@ -192,6 +225,7 @@ public class MainActivity extends AppCompatActivity  {
                     myo.vibrate(Myo.VibrationType.LONG);
                     try { Thread.sleep(1500); } catch(Exception e) { return; }
                     isNight = true;
+                    // Night Mode turns off lights, locks doors, and turns on smartplug (nightlight in this case)
                     I4.setBackgroundResource(R.drawable.night_on);
                     light();
                     isLightOn = getStatus(dlc, "light-control", "switch", isLightOn, "on", "off");
@@ -286,6 +320,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     @Override
+    // Updates images whenever app is reopened from background
     protected void onResume() {
         super.onResume();
         isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
