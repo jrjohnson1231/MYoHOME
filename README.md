@@ -5,4 +5,4 @@ MYoHOME connects the Myo Remote armband to the AT&T digital life home system. Wi
 
 Screenshot of the UI has been included in this repository for viewing.
 
-Creators: John Johnson, Prathm Juneja, Robert Simari, Nick
+Creators: John Johnson, Prathm Juneja, Robert Simari, Nick Pellegrino
