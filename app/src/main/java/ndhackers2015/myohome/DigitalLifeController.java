@@ -253,40 +253,6 @@ public class DigitalLifeController {
 
     }
 
-    /**
-     * Assigns the correct ICON to the device by device type.
-     *
-     * @param
-     */
- /*   public static void decorateDevice(DigitalLifeDevice device) {
-        String deviceType = device.getDeviceType();
-        if ("door-lock".equalsIgnoreCase(deviceType)) {
-            if ("unlocked".equalsIgnoreCase(device.getStatus())) {
-                device.setResourceID(R.drawable.device_list_icon_lock_inactive);
-            } else {
-                device.setResourceID(R.drawable.device_list_icon_lock_active);
-            }
-        } else if ("smart-plug".equalsIgnoreCase(deviceType)) {
-            if ("off".equalsIgnoreCase(device.getStatus())) {
-                device.setResourceID(R.drawable.device_list_icon_power_inactive);
-            } else {
-                device.setResourceID(R.drawable.device_list_icon_power_active);
-            }
-        } else if ("contact-sensor".equalsIgnoreCase(deviceType)) {
-            if ("closed".equalsIgnoreCase(device.getStatus())) {
-                device.setResourceID(R.drawable.device_list_icon_sensor_inactive);
-            } else {
-                device.setResourceID(R.drawable.device_list_icon_sensor_active);
-            }
-        } else if ("water-sensor".equalsIgnoreCase(deviceType)) {
-            if ("closed".equalsIgnoreCase(device.getStatus())) {
-                device.setResourceID(R.drawable.device_list_icon_water_temp_inactive);
-            } else {
-                device.setResourceID(R.drawable.device_list_icon_water_temp_active);
-            }
-        }
-    }
-*/
     public JSONArray fetchDevices() {
         JSONArray devices = getDevicesAsJSON(deviceJsonData);
         return devices;
