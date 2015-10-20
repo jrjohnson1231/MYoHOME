@@ -51,15 +51,12 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
         ActionBar actionbar = getActionBar();
         if (actionbar != null) {
             actionbar.setTitle("");
         }
 
-=======
         // Get images for UI
->>>>>>> e215d7e4ada1d88e9ba2df72bc578c3b0496f629
         I1 = (ImageView) findViewById(R.id.imageView1);
         I2 = (ImageView) findViewById(R.id.imageView2);
         I3 = (ImageView) findViewById(R.id.imageView3);
@@ -86,13 +83,9 @@ public class MainActivity extends AppCompatActivity  {
         I8.setBackgroundResource(R.drawable.myo2);
         I9.setBackgroundResource(R.drawable.myo3);
 
-<<<<<<< HEAD
-        // Initialize DL
-=======
         // Initialize Digital Life
         dlc = DigitalLifeController.getInstance();
         dlc.init("EE_E424920D0D768DAF_1", "https://systest.digitallife.att.com");
->>>>>>> e215d7e4ada1d88e9ba2df72bc578c3b0496f629
         try {
             dlc = DigitalLifeController.getInstance();
             dlc.init("EE_E424920D0D768DAF_1", "https://systest.digitallife.att.com");
@@ -103,7 +96,6 @@ public class MainActivity extends AppCompatActivity  {
             return;
         }
 
-<<<<<<< HEAD
         try {
             isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
             if (isDoorLocked == true) {
@@ -126,7 +118,8 @@ public class MainActivity extends AppCompatActivity  {
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Could not load Digital Life", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
-=======
+        }
+
         // Get status of digital life features and change immages accordingly
         isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
         if (isDoorLocked == true) {
@@ -145,7 +138,6 @@ public class MainActivity extends AppCompatActivity  {
             I3.setBackgroundResource(R.drawable.connected);
         } else {
             I3.setBackgroundResource(R.drawable.disconnected);
->>>>>>> e215d7e4ada1d88e9ba2df72bc578c3b0496f629
         }
         I4.setBackgroundResource(R.drawable.night_off);
     }
