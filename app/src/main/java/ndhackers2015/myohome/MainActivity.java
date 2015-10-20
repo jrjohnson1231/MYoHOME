@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.ActionBar;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar actionbar = getActionBar();
+        ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
             actionbar.setTitle("");
         }
@@ -85,8 +84,8 @@ public class MainActivity extends AppCompatActivity  {
 
         // Initialize Digital Life
         dlc = DigitalLifeController.getInstance();
-        dlc.init("EE_E424920D0D768DAF_1", "https://systest.digitallife.att.com");
         try {
+        dlc.init("EE_E424920D0D768DAF_1", "https://systest.digitallife.att.com");
             dlc = DigitalLifeController.getInstance();
             dlc.init("EE_E424920D0D768DAF_1", "https://systest.digitallife.att.com");
             dlc.login( "553474454", "NO-PASSWD");
@@ -115,31 +114,31 @@ public class MainActivity extends AppCompatActivity  {
             } else {
                 I3.setBackgroundResource(R.drawable.disconnected);
             }
+
+            // Get status of digital life features and change immages accordingly
+            isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
+            if (isDoorLocked == true) {
+                I1.setBackgroundResource(R.drawable.locked);
+            } else {
+                I1.setBackgroundResource(R.drawable.unlocked);
+            }
+            isLightOn = getStatus(dlc, "light-control", "switch", isLightOn, "on", "off");
+            if (isLightOn == true) {
+                I2.setBackgroundResource(R.drawable.light_on);
+            } else {
+                I2.setBackgroundResource(R.drawable.light_off);
+            }
+            isSmartPlugOn = getStatus(dlc, "smart-plug", "switch", isSmartPlugOn, "on", "off");
+            if (isSmartPlugOn == true) {
+                I3.setBackgroundResource(R.drawable.connected);
+            } else {
+                I3.setBackgroundResource(R.drawable.disconnected);
+            }
+            I4.setBackgroundResource(R.drawable.night_off);
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Could not load Digital Life", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-
-        // Get status of digital life features and change immages accordingly
-        isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
-        if (isDoorLocked == true) {
-            I1.setBackgroundResource(R.drawable.locked);
-        } else {
-            I1.setBackgroundResource(R.drawable.unlocked);
-        }
-        isLightOn = getStatus(dlc, "light-control", "switch", isLightOn, "on", "off");
-        if (isLightOn == true) {
-            I2.setBackgroundResource(R.drawable.light_on);
-        } else {
-            I2.setBackgroundResource(R.drawable.light_off);
-        }
-        isSmartPlugOn = getStatus(dlc, "smart-plug", "switch", isSmartPlugOn, "on", "off");
-        if (isSmartPlugOn == true) {
-            I3.setBackgroundResource(R.drawable.connected);
-        } else {
-            I3.setBackgroundResource(R.drawable.disconnected);
-        }
-        I4.setBackgroundResource(R.drawable.night_off);
     }
 
     // Get current status of device by connecting to Digital Life API
@@ -165,7 +164,6 @@ public class MainActivity extends AppCompatActivity  {
             }
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Could not load Digital Life", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
             return in;
         }
         return in;
@@ -315,23 +313,28 @@ public class MainActivity extends AppCompatActivity  {
     // Updates images whenever app is reopened from background
     protected void onResume() {
         super.onResume();
-        isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
-        if (isDoorLocked == true) {
-            I1.setBackgroundResource(R.drawable.locked);
-        } else {
-            I1.setBackgroundResource(R.drawable.unlocked);
-        }
-        isLightOn = getStatus(dlc, "light-control", "switch", isLightOn, "on", "off");
-        if (isLightOn == true) {
-            I2.setBackgroundResource(R.drawable.light_on);
-        } else {
-            I2.setBackgroundResource(R.drawable.light_off);
-        }
-        isSmartPlugOn = getStatus(dlc, "smart-plug", "switch", isSmartPlugOn, "on", "off");
-        if (isSmartPlugOn == true) {
-            I3.setBackgroundResource(R.drawable.connected);
-        } else {
-            I3.setBackgroundResource(R.drawable.disconnected);
+        try {
+            isDoorLocked = getStatus(dlc, "door-lock", "lock", isDoorLocked, "lock", "unlock");
+            if (isDoorLocked == true) {
+                I1.setBackgroundResource(R.drawable.locked);
+            } else {
+                I1.setBackgroundResource(R.drawable.unlocked);
+            }
+            isLightOn = getStatus(dlc, "light-control", "switch", isLightOn, "on", "off");
+            if (isLightOn == true) {
+                I2.setBackgroundResource(R.drawable.light_on);
+            } else {
+                I2.setBackgroundResource(R.drawable.light_off);
+            }
+            isSmartPlugOn = getStatus(dlc, "smart-plug", "switch", isSmartPlugOn, "on", "off");
+            if (isSmartPlugOn == true) {
+                I3.setBackgroundResource(R.drawable.connected);
+            } else {
+                I3.setBackgroundResource(R.drawable.disconnected);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
         }
     }
 

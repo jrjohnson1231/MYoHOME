@@ -133,30 +133,34 @@ public class DigitalLifeController {
 
             @Override
             protected void onPostExecute(JSONObject data) {
-                if (data == null) {
-                    isLoggedIn = false;
-                    return;
+                try {
+                    if (data == null) {
+                        isLoggedIn = false;
+                        return;
+                    }
+
+                    isLoggedIn = true;
+
+                    // content contains customer data
+                    JSONObject content = (JSONObject) data.get("content");
+
+                    // extract gateway guid
+                    JSONArray gateways = (JSONArray) content.get("gateways");
+                    JSONObject gateway = (JSONObject) gateways.get(0);  // just grabbing the first for this illustration
+                    gatewayGUID = (String) gateway.get("id");
+
+                    // extract the auth token
+                    authToken = (String) content.get("authToken");
+
+                    // extract the request token
+                    requestToken = (String) content.get("requestToken");
+
+                    System.out.println("Gateway:  " + gatewayGUID
+                            + "\nAuthToken: " + authToken + "\nRequestToken: "
+                            + requestToken);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
-                isLoggedIn = true;
-
-                // content contains customer data
-                JSONObject content = (JSONObject) data.get("content");
-
-                // extract gateway guid
-                JSONArray gateways = (JSONArray) content.get("gateways");
-                JSONObject gateway = (JSONObject) gateways.get(0);  // just grabbing the first for this illustration
-                gatewayGUID = (String) gateway.get("id");
-
-                // extract the auth token
-                authToken = (String) content.get("authToken");
-
-                // extract the request token
-                requestToken = (String) content.get("requestToken");
-
-                System.out.println("Gateway:  " + gatewayGUID
-                        + "\nAuthToken: " + authToken + "\nRequestToken: "
-                        + requestToken);
             }
         };
 
